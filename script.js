@@ -71,9 +71,26 @@ function buildQuiz(){
 }
 
 buildQuiz();
+
+let timeRemaining = 10;
+const timerElement = document.getElementById('timer');
+let timerInterval;
+
+function updateTimer() {
+if (timeRemaining > 0) {
+  timerElement.textContent = `Time Remaining: ${timeRemaining} seconds`;
+  timeRemaining--;
+} else {
+  showResults();
+}
+}
+
+timerInterval = setInterval(updateTimer, 1000);
+
 submitButton.addEventListener('click', showResults);
 
 function showResults(){
+    clearInterval(timerInterval);
     // gather answer containers from our quiz
     const answerContainers = quizContainer.querySelectorAll('.answers'); 
     // keep track of user's answers
@@ -104,19 +121,7 @@ function showResults(){
     resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;    
   }
 
-  let timeRemaining = 10;
-  const timerElement = document.getElementById('timer');
 
-function updateTimer() {
-  if (timeRemaining > 0) {
-    timerElement.textContent = `Time Remaining: ${timeRemaining} seconds`;
-    timeRemaining--;
-  } else {
-    showResults();
-  }
-}
-
-setInterval(updateTimer, 1000);
 
 
 
